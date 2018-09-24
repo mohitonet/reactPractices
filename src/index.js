@@ -134,28 +134,28 @@ class LoginControl extends React.Component {
 
         return (
             <div>
-              <Greetings isLoggedIn={isLoggedIn} />
-              {button}
+                <Greetings isLoggedIn={isLoggedIn} />
+                {button}
             </div>
-          );
+        );
     }
 }
 
 function LoginButton(props) {
     return (
-      <button onClick={props.onClick}>
-        Login
+        <button onClick={props.onClick}>
+            Login
       </button>
     );
-  }
-  
-  function LogoutButton(props) {
+}
+
+function LogoutButton(props) {
     return (
-      <button onClick={props.onClick}>
-        Logout
+        <button onClick={props.onClick}>
+            Logout
       </button>
     );
-  }
+}
 /*
 ReactDOM.render(
     <LoginControl />,
@@ -163,17 +163,90 @@ ReactDOM.render(
 );
 */
 
-function NumberList(props){
+function NumberList(props) {
     const numbers = props.numbers;
-    const listItems = numbers.map((number) => <li>{number}</li>);
-    return(
+    const listItems = numbers.map((number) => <li key={number.toString()}>{number}</li>);
+    return (
         <ul>{listItems}</ul>
     )
 }
 
 const numbers = [1, 2, 3, 4, 5];
 
+/*
 ReactDOM.render(
-    <NumberList numbers = {numbers} />, 
+    <NumberList numbers={numbers} />,
+    document.getElementById('root')
+);
+*/
+
+function Blog(props) {
+    const sideBar = (
+        <ul>
+            {props.posts.map((posts) =>
+                <li key={posts.id}>
+                    {posts.title}
+                </li>
+            )}
+        </ul>
+    );
+
+    const content = props.posts.map((posts) =>
+        <div key={posts.id}>
+            <h3>{posts.title}</h3>
+            <p>{posts.content}</p>
+        </div>
+    );
+
+    return(
+        <div>
+            {sideBar}
+            <hr/>
+            {content}
+        </div>
+    );
+}
+
+const posts = [
+    { id: 1, title: 'Hello world', content: 'Welcome to learning React!' },
+    { id: 2, title: 'Installation', content: 'You can install react from NPM' }
+];
+
+class NameForm extends React.Component{
+    constructor(props)
+    {
+        super(props);
+        this.state = {value: ''};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({value: event.target.value.toUpperCase()});
+    }
+
+    handleSubmit(event){
+        alert('A name was subitted: ' + this.state.value);
+        event.preventDefault();
+    }
+
+    render(){
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Essay: 
+                    <textarea value = {this.props.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit"/>
+            </form>
+        )
+    }
+}
+
+
+ReactDOM.render(
+    <NameForm />,
+    
     document.getElementById('root')
 );
