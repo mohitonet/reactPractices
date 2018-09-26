@@ -198,10 +198,10 @@ function Blog(props) {
         </div>
     );
 
-    return(
+    return (
         <div>
             {sideBar}
-            <hr/>
+            <hr />
             {content}
         </div>
     );
@@ -212,67 +212,66 @@ const posts = [
     { id: 2, title: 'Installation', content: 'You can install react from NPM' }
 ];
 
-class NameForm extends React.Component{
-    constructor(props)
-    {
+class NameForm extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             value: 'Please write an essay about your favorite DOM element.'
-          };
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
-        this.setState({value: event.target.value});
+    handleChange(event) {
+        this.setState({ value: event.target.value });
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
         alert('An essay was subitted: ' + this.state.value);
         event.preventDefault();
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Essay: 
-                    <textarea value = {this.state.value} onChange={this.handleChange} />
+                    Essay:
+                    <textarea value={this.state.value} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit"/>
+                <input type="submit" value="Submit" />
             </form>
         )
     }
 }
 
-class FlavorForm extends React.Component{
-    constructor(props){
+class FlavorForm extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {value: 'coconut'};
+        this.state = { value: 'coconut' };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
-        this.setState({value: event.target.value});
+    handleChange(event) {
+        this.setState({ value: event.target.value });
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
         alert('you choice has been submitted: ' + this.state.value);
         event.preventDefault();
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <form onSubmit={this.handleSubmit}>
                 <label>Pick your flavor:
                     <select value={this.state.value} onChange={this.handleChange}>
-                    <option value="grapefruit">Grapefruit</option>
-                    <option value="lime">Lime</option>
-                    <option value="coconut">Coconut</option>
-                    <option value="mango">Mango</option>
+                        <option value="grapefruit">Grapefruit</option>
+                        <option value="lime">Lime</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="mango">Mango</option>
                     </select>
                 </label>
                 <input type="submit" onSubmit={this.handleSubmit} />
@@ -282,9 +281,79 @@ class FlavorForm extends React.Component{
 
 }
 
+class Reservation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2
+        }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    render() {
+        return (
+            <form>
+                <label>
+                    Is going:
+                    <input name="isGoing" type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />
+                </label>
+                <br />
+                <label>
+                    Number of guests:
+                    <input name="numberOfGuests" type="number" value={this.state.numberOfGuests} onChange={this.handleInputChange} />
+                </label>
+            </form>
+        );
+    }
+}
+
+
+function BoilingVerdict(props){
+    if(props.celcius < 100){
+        return <p> The water would not boil</p>
+    }
+    return <p> The water would boil</p>
+}
+
+
+class Calculator extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {temprature: ''};
+    }
+
+    handleChange(e){
+        this.setState({temprature: e.target.value});
+    }
+
+    render(){
+        const temprature = this.state.temprature;
+        return(
+            <fieldset>
+                <legend> Enter temp in celcius:</legend>
+                <input value={temprature} onChange={this.handleChange} />
+
+                <BoilingVerdict celcius={parseFloat(temprature)} />
+            </fieldset>
+        );
+    }
+}
 
 ReactDOM.render(
-    <FlavorForm />,
-    
+    <Calculator />,
+
     document.getElementById('root')
 );
