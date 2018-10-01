@@ -384,7 +384,7 @@ class Calculator extends React.Component {
                 <TempratureInput temprature={fahrenheit} onTempratureChange={this.handleCelciusChange} />
 
                 <BoilingVerdict
-                    celcius={parseFloat(fahrenheit)} />
+                    celcius={parseFloat(celcius)} />
             </div>
         );
     }
