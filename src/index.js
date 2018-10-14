@@ -18,7 +18,7 @@ class ProductCategoryRow extends React.Component {
 class ProductRow extends React.Component {
     render() {
         const product = this.props.product;
-        const name = product.stocked ?
+        const name = product.masterOrders ?
             product.name :
             <span style={{ color: 'red' }}>
                 {product.name}
@@ -46,7 +46,7 @@ class ProductTable extends React.Component {
                 return;
             }
 
-            if (inStockOnly && !product.stocked) {
+            if (inStockOnly && !product.masterOrders) {
                 return;
             }
 
@@ -110,7 +110,7 @@ class SearchBar extends React.Component {
                         onChange={this.handleInStockChange}
                     />
                     {' '}
-                    Only show products in stock
+                    Only show master orders
             </p>
             </form>
         );
@@ -163,12 +163,12 @@ class FilterableProductTable extends React.Component {
 
 
 const PRODUCTS = [
-    { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
-    { category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball' },
-    { category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball' },
-    { category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch' },
-    { category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5' },
-    { category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7' }
+    { category: 'Stocks', price: '$49.99', masterOrders: true, name: 'AAPL' },
+    { category: 'Stocks', price: '$9.99', masterOrders: true, name: 'ABC' },
+    { category: 'Stocks', price: '$29.99', masterOrders: false, name: 'IBM' },
+    { category: 'Stocks', price: '$99.99', masterOrders: true, name: 'Google' },
+    { category: 'Future', price: '$399.99', masterOrders: true, name: 'FB' },
+    { category: 'Future', price: '$199.99', masterOrders: true, name: 'Microsoft' }
 ];
 
 ReactDOM.render(
